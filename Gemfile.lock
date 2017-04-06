@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/charlottejuniordevs/api_toolbox
+  revision: 011fd97dd579b9d3830b96b1fbad0367c878181c
+  specs:
+    api_toolbox (0.1.0)
+      httparty
+      interactor
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -29,10 +37,9 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport-inflector
+  api_toolbox!
   dotenv
-  httparty
   i18n
-  interactor
   pry
   sinatra
 

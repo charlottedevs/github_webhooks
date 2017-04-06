@@ -1,6 +1,3 @@
-require_relative "fetch_user_from_github_handle"
-require_relative "post_event_to_api"
-
 class RecordGitHubEvent
   include Interactor
 
@@ -16,8 +13,8 @@ class RecordGitHubEvent
   end
 
   def fetch_user
-    context.github_handle ||= event_sender
-    FetchUserFromGitHubHandle.call(context)
+    context.user_params = { github_handle: event_sender }
+    ApiToolbox::FetchUser.call(context)
     context.success?
   end
 
@@ -27,7 +24,7 @@ class RecordGitHubEvent
 
   def post_event_to_api
     context.event ||= event_category
-    PostEventToAPI.call(context)
+    ApiToolbox::PostEventToAPI.call(context)
     context.success?
   end
 

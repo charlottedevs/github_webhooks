@@ -3,9 +3,9 @@ source "https://rubygems.org"
 
 gem "activesupport-inflector"
 gem "i18n"
-gem "httparty"
 gem "sinatra"
-gem "interactor"
+
+gem "api_toolbox", git: "https://github.com/charlottejuniordevs/api_toolbox"
 
 group :development do
   gem "dotenv"
