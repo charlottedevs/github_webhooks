@@ -1,19 +1,29 @@
+require "active_support/inflector"
+
 class RecordGitHubEvent
   include Interactor
 
   def call
+    return unless merged_pull_request?
     return if user && post_event_to_api
     context.fail!(errors: context.errors)
   end
 
   private
 
+  def merged_pull_request?
+    payload.dig("pull_request", "merged").to_s == "true"
+  end
+
   def user
-    context.user || fetch_user && context.user
+    context.user ||= fetch_user && context.user
   end
 
   def fetch_user
-    context.user_params = { github_handle: event_sender }
+    context.user_params = {
+      search: "github_handle", value: event_sender
+    }
+
     ApiToolbox::FetchUser.call(context)
     context.success?
   end
@@ -23,14 +33,18 @@ class RecordGitHubEvent
   end
 
   def post_event_to_api
-    context.event ||= event_category
-    ApiToolbox::PostEventToAPI.call(context)
+    params = {
+      event_category: event_category,
+      user_id:        user["id"]
+    }
+
+    context.response = ApiToolbox::PostEventToAPI.call(params).response
     context.success?
   end
 
   def event_category
-    "#{event_type.pluralize}_#{event_action}"
-    # => "issues_created", "pull_requests_opened", etc.
+    "#{event_type.singularize}_#{event_action}"
+    # => "issue_created", "pull_request_opened", etc.
   end
 
   def request

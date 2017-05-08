@@ -1,5 +1,5 @@
 {
-  "action": "opened",
+  "action": "closed",
     "number": 1,
     "pull_request": {
       "url": "https://api.github.com/repos/baxterthehacker/public-repo/pulls/1",
@@ -292,7 +292,7 @@
           "href": "https://api.github.com/repos/baxterthehacker/public-repo/statuses/0d1a26e67d8f5eaf1f6ba5c57fc3c7d91ac0fd1c"
         }
       },
-      "merged": false,
+      "merged": true,
       "mergeable": null,
       "mergeable_state": "unknown",
       "merged_by": null,
@@ -391,7 +391,7 @@
       "default_branch": "master"
     },
     "sender": {
-      "login": "baxterthehacker",
+      "login": "foobar",
       "id": 6752317,
       "avatar_url": "https://avatars.githubusercontent.com/u/6752317?v=3",
       "gravatar_id": "",
