@@ -52,7 +52,7 @@ class RecordGitHubEvent
   end
 
   def event_type
-    request.env["HTTP_X-GitHub-Event"]
+    request.env["HTTP_X_GITHUB_EVENT"]
   end
 
   def event_action
