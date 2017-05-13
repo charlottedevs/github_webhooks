@@ -18,5 +18,9 @@ module GitHubWebhooks
         result.errors
       end
     end
+
+    get "/" do
+      "ok"
+    end
   end
 end
