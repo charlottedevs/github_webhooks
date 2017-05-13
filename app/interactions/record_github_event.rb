@@ -60,6 +60,10 @@ class RecordGitHubEvent
   end
 
   def payload
-    @payload ||= JSON.parse(request.body)
+    return @payload if @payload
+
+    request.body.rewind
+    payload_body = request.body.read
+    @payload = JSON.parse(payload_body)
   end
 end
