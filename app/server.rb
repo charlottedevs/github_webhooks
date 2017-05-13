@@ -8,7 +8,7 @@ end
 
 module GitHubWebhooks
   class Server < Sinatra::Base
-    get "/events" do
+    post "/events" do
       result = RecordGitHubEvent.call(request: request)
       if result.success?
         status 201
