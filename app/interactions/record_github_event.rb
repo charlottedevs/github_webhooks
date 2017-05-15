@@ -35,7 +35,8 @@ class RecordGitHubEvent
   def post_event_to_api
     params = {
       event_category: event_category,
-      user_id:        user["id"]
+      user_id:        user["id"],
+      info:           build_event_info
     }
 
     context.response = ApiToolbox::PostEventToAPI.call(params).response
@@ -45,6 +46,14 @@ class RecordGitHubEvent
   def event_category
     "#{event_type.singularize}_#{event_action}"
     # => "issue_created", "pull_request_opened", etc.
+  end
+
+  def build_event_info
+    {
+      title:  payload.dig("pull_request", "title"),
+      url:    payload.dig("pull_request", "html_url"),
+      number: payload.dig("pull_request", "number")
+    }
   end
 
   def request
