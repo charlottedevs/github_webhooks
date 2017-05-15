@@ -21,15 +21,15 @@ class RecordGitHubEvent
 
   def fetch_user
     context.user_params = {
-      search: "github_handle", value: event_sender
+      search: "github_handle", value: user_that_opened_pull_request
     }
 
     ApiToolbox::FetchUser.call(context)
     context.success?
   end
 
-  def event_sender
-    payload["sender"]["login"]
+  def user_that_opened_pull_request
+    payload.dig("pull_request","user", "login")
   end
 
   def post_event_to_api
